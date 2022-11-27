@@ -1,0 +1,66 @@
+Создаём виртуальное окружение:  python -m venv venv 
+ 
+
+Заходим в него:  venv\scripts\activate 
+ 
+
+Устанавливаем Django в свежее виртуальное окружение:  pip install django 
+ 
+
+И запускаем команду создания проекта:  django-admin startproject NewsPaper 
+ 
+
+Переходим в директорию проекта: cd NewsPaper 
+ 
+
+Cоздаeм новое приложение news: python manage.py startapp news 
+
+ 
+
+Создаем приложение accounts:  python manage.py startapp accounts 
+
+Создаем и применяем миграции:  python manage.py makemigrations 
+
+  python manage.py migrate 
+
+Переходим к Django shell: python manage.py shell 
+
+ 
+
+Импортируем приложение: from news.models import *  
+
+Создаем пользователя: u1 = User.objects.create_user(username=’Имя’) 
+
+Создаем автора: Author.objects.create(authorUser=u1) 
+
+Создаем категорию: Category.objects.create(name=’Название’) 
+
+Создаем пост: author = Author.objects.get(id=1) 
+
+Создаем пост: Post.objects.create(author=author, categoryType=’NW’, title=’sometitle’, text=’somebigtext’) 
+
+Присвоить категории: Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1)) 
+
+Создать как минимум 4 комментария к разным объектам модели Post: 
+
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text=’anytextauthor’) 
+
+Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов: Comment.objects.get(id=1).like() 
+
+Comment.objects.get(id=2).dislike() 
+
+Рейтинг комментария: Comment.objects.get(id=1).rating 
+
+Обновить рейтинги пользователей: a = Author.objects.get(id=1) 
+
+a.update_rating() 
+
+a.ratinfAuthor 
+
+Вывести username и рейтинг лучшего пользователя:  
+
+for i in a: 
+
+...     i.ratingAuthor 
+
+...     i.authorUser.username 
